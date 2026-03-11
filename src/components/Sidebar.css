@@ -48,11 +48,22 @@
   border-radius: 5px;
   margin-left: -10px;
   transition: background 0.12s ease, color 0.12s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: calc(100% + 10px);
+  text-align: left;
+  font-family: inherit;
 }
 
 .nav-item:hover {
   background: var(--hover-bg);
   color: var(--text-primary);
+}
+
+.nav-item--active {
+  color: var(--text-primary);
+  background: var(--hover-bg);
 }
 
 @media (max-width: 768px) {
@@ -67,6 +78,7 @@
   .sidebar-inner {
     padding: 24px 20px;
     gap: 20px;
+    height: auto;
   }
 
   .sidebar-nav {
@@ -77,5 +89,6 @@
 
   .nav-item {
     margin-left: 0;
+    width: auto;
   }
 }

@@ -3,14 +3,14 @@ import ThemeToggle from './ThemeToggle'
 
 const navItems = [
   { id: 'about', label: 'About' },
-  // { id: 'experience', label: 'Experience' },
-  // { id: 'projects', label: 'Projects' },
-  // { id: 'labs', label: 'Labs' },
-  // { id: 'accomplishments', label: 'Accomplishments' },
-  // { id: 'blogs', label: 'Blogs' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'labs', label: 'Labs' },
+  { id: 'accomplishments', label: 'Accomplishments' },
+  { id: 'blogs', label: 'Blogs' },
 ]
 
-export default function Sidebar() {
+export default function Sidebar({ active, onNav }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-inner">
@@ -21,9 +21,13 @@ export default function Sidebar() {
 
         <nav className="sidebar-nav">
           {navItems.map((item) => (
-            <a key={item.id} href={`#${item.id}`} className="nav-item">
+            <button
+              key={item.id}
+              onClick={() => onNav(item.id)}
+              className={`nav-item${active === item.id ? ' nav-item--active' : ''}`}
+            >
               {item.label}
-            </a>
+            </button>
           ))}
         </nav>
 

@@ -1,0 +1,31 @@
+.accomplishments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.accomplishment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-left: -12px;
+  transition: background 0.12s ease;
+}
+
+.accomplishment-item:hover {
+  background: var(--hover-bg);
+}
+
+.accomplishment-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.accomplishment-arrow {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}

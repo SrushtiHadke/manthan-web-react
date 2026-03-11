@@ -61,14 +61,7 @@ a {
 
 /* Shared section styles used across all sections */
 .section {
-  padding-bottom: 56px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 56px;
-}
-
-.section:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
+  padding: 64px 48px;
 }
 
 .section-title {
@@ -78,4 +71,10 @@ a {
   letter-spacing: 0.1em;
   color: var(--text-muted);
   margin-bottom: 28px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 20px;
+  }
 }

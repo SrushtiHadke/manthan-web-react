@@ -1,0 +1,60 @@
+.labs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lab-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 12px;
+  border-radius: 6px;
+  margin-left: -12px;
+  transition: background 0.12s ease;
+}
+
+.lab-item:hover {
+  background: var(--hover-bg);
+}
+
+.lab-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lab-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.lab-arrow {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.lab-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.lab-try-btn {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+  align-self: flex-start;
+}
+
+.lab-try-btn:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}

@@ -25,6 +25,11 @@
   letter-spacing: 0.07em;
 }
 
+.blog-post {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
 .blog-post-body {
   color: var(--text-secondary);
   font-size: 0.9rem;

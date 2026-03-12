@@ -12,6 +12,12 @@
   border-radius: 6px;
   margin-left: -12px;
   transition: background 0.12s ease;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-family: var(--font);
 }
 
 .blog-item:hover {

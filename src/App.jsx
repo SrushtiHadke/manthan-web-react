@@ -6,6 +6,7 @@ import Projects from './components/Projects'
 import Labs from './components/Labs'
 import Accomplishments from './components/Accomplishments'
 import Blogs from './components/Blogs'
+import BlogPost from './components/BlogPost'
 import './App.css'
 
 const sections = {
@@ -17,32 +18,48 @@ const sections = {
   blogs: Blogs,
 }
 
-function getPathSection() {
-  const path = window.location.pathname.replace(/^\//, '')
-  return sections[path] ? path : 'about'
+function parsePath() {
+  const parts = window.location.pathname.replace(/^\//, '').split('/')
+  const section = parts[0] || 'about'
+  const slug = parts[1] || null
+  return { section: sections[section] ? section : 'about', slug }
 }
 
 export default function App() {
-  const [active, setActive] = useState(getPathSection)
+  const [route, setRoute] = useState(parsePath)
 
   useEffect(() => {
-    const onPopState = () => setActive(getPathSection())
+    const onPopState = () => setRoute(parsePath())
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
   function handleNav(id) {
     window.history.pushState(null, '', '/' + id)
-    setActive(id)
+    setRoute({ section: id, slug: null })
   }
 
-  const Section = sections[active]
+  function handleBlogOpen(slug) {
+    window.history.pushState(null, '', '/blogs/' + slug)
+    setRoute({ section: 'blogs', slug })
+  }
+
+  function handleBlogBack() {
+    window.history.pushState(null, '', '/blogs')
+    setRoute({ section: 'blogs', slug: null })
+  }
+
+  const { section, slug } = route
+  const Section = sections[section]
 
   return (
     <div className="layout">
-      <Sidebar active={active} onNav={handleNav} />
+      <Sidebar active={section} onNav={handleNav} />
       <main className="content">
-        <Section />
+        {section === 'blogs' && slug
+          ? <BlogPost slug={slug} onBack={handleBlogBack} />
+          : <Section onBlogOpen={handleBlogOpen} />
+        }
       </main>
     </div>
   )

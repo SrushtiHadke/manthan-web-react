@@ -8,16 +8,15 @@
 
 .theme-btn {
   flex: 1;
-  padding: 4px 0;
-  font-size: 0.7rem;
-  font-weight: 500;
+  padding: 5px 0;
+  font-size: 1rem;
   border: none;
   background: transparent;
   color: var(--text-muted);
   border-radius: 4px;
   cursor: pointer;
-  font-family: var(--font);
   transition: background 0.12s ease, color 0.12s ease;
+  line-height: 1;
 }
 
 .theme-btn:hover {

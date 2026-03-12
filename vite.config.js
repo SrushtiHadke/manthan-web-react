@@ -3,8 +3,10 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',         // '/' works for custom domain (manthankhandale.com)
-                     // Change to '/repo-name/' if using github.io URL without custom domain
+  base: '/',
+  server: {
+    historyApiFallback: true,
+  },
   build: {
     outDir: 'dist',
   },

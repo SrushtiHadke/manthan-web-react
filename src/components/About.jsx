@@ -5,11 +5,14 @@ const contact = {
   phone: '+91 9607213241',
 }
 
+const RESUME_URL = 'RESUME_S3_URL'
+
 const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/Manty-k' },
   { label: 'YouTube', href: 'https://youtube.com/@manthankhandale23' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/manthan-khandale' },
   { label: 'Dev.to', href: 'https://dev.to/mantyk' },
+  { label: 'Resume', href: RESUME_URL, highlight: true },
 ]
 
 export default function About() {
@@ -52,7 +55,7 @@ export default function About() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link"
+              className={`social-link${link.highlight ? ' social-link--resume' : ''}`}
             >
               {link.label}
             </a>

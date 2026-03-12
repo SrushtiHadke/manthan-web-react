@@ -17,22 +17,22 @@ const sections = {
   blogs: Blogs,
 }
 
-function getHashSection() {
-  const hash = window.location.hash.replace('#', '')
-  return sections[hash] ? hash : 'about'
+function getPathSection() {
+  const path = window.location.pathname.replace(/^\//, '')
+  return sections[path] ? path : 'about'
 }
 
 export default function App() {
-  const [active, setActive] = useState(getHashSection)
+  const [active, setActive] = useState(getPathSection)
 
   useEffect(() => {
-    const onHashChange = () => setActive(getHashSection())
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    const onPopState = () => setActive(getPathSection())
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
   function handleNav(id) {
-    window.location.hash = id
+    window.history.pushState(null, '', '/' + id)
     setActive(id)
   }
 

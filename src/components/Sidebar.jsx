@@ -1,5 +1,6 @@
 import './Sidebar.css'
 import ThemeToggle from './ThemeToggle'
+import ShaderCanvas from './ShaderCanvas'
 
 const navItems = [
   { id: 'about', label: 'About' },
@@ -13,6 +14,7 @@ const navItems = [
 export default function Sidebar({ active, onNav }) {
   return (
     <aside className="sidebar">
+      <ShaderCanvas />
       <div className="sidebar-inner">
         <div className="sidebar-header">
           <h1 className="sidebar-name">Manthan Khandale</h1>

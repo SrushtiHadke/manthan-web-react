@@ -67,3 +67,8 @@
   border-color: var(--text-primary);
   color: var(--text-primary);
 }
+
+.social-link--resume {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}

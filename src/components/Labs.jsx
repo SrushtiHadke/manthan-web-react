@@ -4,12 +4,12 @@ const labs = [
   {
     id: 1,
     name: 'Music Player',
-    description: 'An audio player experiment built with React.',
-    href: '/labs/audio-player/index.html',
+    description: 'An audio player experiment with a WebGL shader background that reacts to music beats.',
+    slug: 'audio-player',
   },
 ]
 
-export default function Labs() {
+export default function Labs({ onLabOpen }) {
   return (
     <section className="section" id="labs">
       <h2 className="section-title">Labs</h2>
@@ -21,14 +21,12 @@ export default function Labs() {
               <span className="lab-name">{item.name}</span>
             </div>
             <p className="lab-desc">{item.description}</p>
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
               className="lab-try-btn"
+              onClick={() => onLabOpen(item.slug)}
             >
               Try it ↗
-            </a>
+            </button>
           </div>
         ))}
       </div>

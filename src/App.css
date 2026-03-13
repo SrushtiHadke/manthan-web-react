@@ -3,9 +3,15 @@
   min-height: 100vh;
 }
 
-.content {
+.content-outer {
   margin-left: var(--sidebar-width);
   flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
   max-width: 680px;
 }
 
@@ -14,10 +20,11 @@
     flex-direction: column;
   }
 
-  .content {
+  .content-outer {
     margin-left: 0;
+  }
+
+  .content {
     max-width: 100%;
-    height: auto;
-    overflow-y: visible;
   }
 }

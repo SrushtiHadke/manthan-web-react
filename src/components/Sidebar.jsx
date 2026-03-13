@@ -18,7 +18,7 @@ export default function Sidebar({ active, onNav }) {
       <div className="sidebar-inner">
         <div className="sidebar-header">
           <h1 className="sidebar-name">Manthan Khandale</h1>
-          <p className="sidebar-tagline">Software Developer · Flutter · Agentic AI</p>
+          <p className="sidebar-tagline">Software Engineer</p>
         </div>
 
         <nav className="sidebar-nav">

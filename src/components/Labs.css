@@ -48,8 +48,11 @@
   font-weight: 500;
   color: var(--text-secondary);
   padding: 5px 14px;
+  background: none;
   border: 1px solid var(--border);
   border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
   transition: border-color 0.15s ease, color 0.15s ease;
   align-self: flex-start;
 }

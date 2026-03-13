@@ -7,6 +7,7 @@ import Labs from './components/Labs'
 import Accomplishments from './components/Accomplishments'
 import Blogs from './components/Blogs'
 import BlogPost from './components/BlogPost'
+import ShaderPlayer from './components/ShaderPlayer'
 import './App.css'
 
 const sections = {
@@ -49,18 +50,35 @@ export default function App() {
     setRoute({ section: 'blogs', slug: null })
   }
 
+  function handleLabOpen(slug) {
+    window.history.pushState(null, '', '/labs/' + slug)
+    setRoute({ section: 'labs', slug })
+  }
+
+  function handleLabBack() {
+    window.history.pushState(null, '', '/labs')
+    setRoute({ section: 'labs', slug: null })
+  }
+
   const { section, slug } = route
   const Section = sections[section]
+
+  // Full-screen routes (no sidebar/layout)
+  if (section === 'labs' && slug === 'audio-player') {
+    return <ShaderPlayer onBack={handleLabBack} />
+  }
 
   return (
     <div className="layout">
       <Sidebar active={section} onNav={handleNav} />
-      <main className="content">
-        {section === 'blogs' && slug
-          ? <BlogPost slug={slug} onBack={handleBlogBack} />
-          : <Section onBlogOpen={handleBlogOpen} />
-        }
-      </main>
+      <div className="content-outer">
+        <main className="content">
+          {section === 'blogs' && slug
+            ? <BlogPost slug={slug} onBack={handleBlogBack} />
+            : <Section onBlogOpen={handleBlogOpen} onLabOpen={handleLabOpen} />
+          }
+        </main>
+      </div>
     </div>
   )
 }

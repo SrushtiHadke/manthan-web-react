@@ -5,7 +5,7 @@ const contact = {
   phone: '+91 9607213241',
 }
 
-const RESUME_URL = 'RESUME_S3_URL'
+const RESUME_URL = 'https://manthan-khandale-public-assets.s3.ap-south-1.amazonaws.com/manthan-khandale-resume.pdf'
 
 const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/Manty-k' },
@@ -27,7 +27,7 @@ export default function About() {
           AWS serverless migration, AI integration, and team-wide engineering initiatives.
         </p>
         <p className="bio">
-          Evolved from Flutter-first mobile development into <strong>Python</strong>,{' '}
+          Evolved from <strong>Flutter</strong>-first mobile development into <strong>Python</strong>,{' '}
           <strong>AWS serverless architecture</strong>, and <strong>Agentic AI</strong> — shipping
           customer-facing products at scale with a focus on clean code and end-to-end ownership.
         </p>
@@ -49,13 +49,26 @@ export default function About() {
         </div>
 
         <div className="social-links">
-          {socialLinks.map((link) => (
+          {socialLinks.filter(l => !l.highlight).map((link) => (
             <a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`social-link${link.highlight ? ' social-link--resume' : ''}`}
+              className="social-link"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+        <div className="social-links">
+          {socialLinks.filter(l => l.highlight).map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="social-link social-link--resume"
             >
               {link.label}
             </a>

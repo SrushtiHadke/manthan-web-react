@@ -71,4 +71,6 @@
 .social-link--resume {
   color: var(--text-primary);
   border-color: var(--text-secondary);
+  font-size: 1rem;
+  padding: 10px 32px;
 }

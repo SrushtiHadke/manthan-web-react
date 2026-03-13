@@ -5,6 +5,7 @@ const jobs = [
     id: 1,
     role: 'Python Developer',
     company: 'KISAN Forum',
+    companyUrl: 'https://kisan.in/',
     location: 'Pune, India',
     period: 'June 2025 — Current',
     bullets: [
@@ -21,6 +22,7 @@ const jobs = [
     id: 2,
     role: 'App Developer',
     company: 'KISAN Forum',
+    companyUrl: 'https://kisan.in/',
     location: 'Pune, India',
     period: 'Nov 2021 — July 2023',
     bullets: [
@@ -54,7 +56,9 @@ export default function Experience() {
             <div className="experience-header">
               <div>
                 <span className="experience-role">{job.role}</span>
-                <span className="experience-company"> · {job.company}</span>
+                <span className="experience-company"> · {job.companyUrl
+                  ? <a href={job.companyUrl} target="_blank" rel="noopener noreferrer">{job.company}</a>
+                  : job.company}</span>
                 <span className="experience-location"> · {job.location}</span>
               </div>
               <span className="experience-period">{job.period}</span>

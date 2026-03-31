@@ -13,14 +13,16 @@
     #root { position: relative; z-index: 1; }
     #root, #root > * { background: transparent !important; }
     .ap-card { background: rgba(0,0,0,0.5) !important; backdrop-filter: blur(16px); }
+
   </style>
   <script>
-    // Block default audio files — only allow blob: URLs (user uploads)
+    // Block the hardcoded /audio/ paths baked into the compiled player
+    // Also set crossOrigin="anonymous" for any http(s) src so Web Audio API can process it
     (function () {
       const desc = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'src');
       Object.defineProperty(HTMLMediaElement.prototype, 'src', {
         set(v) {
-          if (v && !v.startsWith('blob:') && v.includes('/audio/')) return;
+          if (v && !v.startsWith('blob:') && !v.startsWith('http') && v.includes('/audio/')) return;
           desc.set.call(this, v);
         },
         get() { return desc.get.call(this); }
@@ -28,18 +30,46 @@
     })();
   </script>
   <script>
-    // Tap into the <audio> element the React player creates.
-    // Re-captures whenever a new <audio> element appears (e.g. after upload).
     const _OrigAC = window.AudioContext || window.webkitAudioContext;
     let _shCtx = null, _shSrc = null, _capturedEl = null;
 
+    // Step 1 — runs without user gesture: ensures audio element has crossOrigin='anonymous'
+    // so the browser fetches it with CORS headers (required for Web Audio API processing).
+    // Calls el.load() to re-fetch with CORS if not already set.
+    function ensureCORSAudio() {
+      const el = document.querySelector('audio');
+      if (!el || !el.src.startsWith('http')) return false;
+      if (el.crossOrigin !== 'anonymous') {
+        el.crossOrigin = 'anonymous';
+        el.load(); // re-fetch with CORS headers
+      }
+      return true;
+    }
+    // Poll until the React-rendered audio element appears, then set CORS and stop
+    const _corsSetup = setInterval(() => {
+      if (ensureCORSAudio()) clearInterval(_corsSetup);
+    }, 100);
+
+    // Step 2 — runs inside a user gesture (click): creates AudioContext and wires up analyser
     function tryCapture() {
       const el = document.querySelector('audio');
-      if (!el || el === _capturedEl) return; // no element or already captured this one
+      if (!el) return;
+
+      if (el === _capturedEl) {
+        // Same element — MediaElementSource already follows src changes automatically.
+        // Just update tracked src and ensure context is running.
+        _capturedEl.__src = el.src;
+        if (_shCtx && _shCtx.state === 'suspended') _shCtx.resume();
+        return;
+      }
+
+      // New element — for http(s) URLs, wait until CORS is set up.
+      // blob: URLs are same-origin, no CORS needed.
+      if (el.src.startsWith('http') && el.crossOrigin !== 'anonymous') return;
+
       try {
         if (!_shCtx) _shCtx = new _OrigAC();
         if (_shCtx.state === 'suspended') _shCtx.resume();
-        // Disconnect previous source if switching elements
         if (_shSrc) { try { _shSrc.disconnect(); } catch(e) {} _shSrc = null; }
         const an = _shCtx.createAnalyser();
         an.fftSize = 512;
@@ -49,11 +79,18 @@
         _shSrc.connect(_shCtx.destination);
         window.__shaderAnalyser = an;
         _capturedEl = el;
-      } catch(e) { /* retry next tick */ }
+        _capturedEl.__src = el.src;
+      } catch(e) { console.error('capture failed:', e.message); }
     }
 
-    document.addEventListener('click', () => setTimeout(tryCapture, 150));
-    setInterval(tryCapture, 600);
+    // AudioContext must be created/resumed inside a user gesture
+    document.addEventListener('click', () => {
+      if (_shCtx && _shCtx.state === 'suspended') _shCtx.resume();
+      setTimeout(tryCapture, 150);
+    });
+
+    // Re-capture if audio element is replaced after a file upload
+    setInterval(() => { if (_shCtx) tryCapture(); }, 600);
   </script>
   <script type="module" crossorigin src="./assets/index-Cg2i0uBL.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-DtRhAtNo.css">

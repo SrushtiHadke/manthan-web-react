@@ -69,6 +69,11 @@
   background: var(--hover-bg);
 }
 
+/* Light mode: soft lavender-to-warm gradient since the shader colours don't suit light backgrounds */
+[data-theme="light"] .sidebar {
+  background: linear-gradient(160deg, #d8cfef 0%, #faf9f7 70%);
+}
+
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;

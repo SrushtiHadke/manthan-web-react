@@ -8,6 +8,7 @@ import Accomplishments from './components/Accomplishments'
 import Blogs from './components/Blogs'
 import BlogPost from './components/BlogPost'
 import ShaderPlayer from './components/ShaderPlayer'
+import NotFound from './components/NotFound'
 import './App.css'
 
 const sections = {
@@ -23,7 +24,7 @@ function parsePath() {
   const parts = window.location.pathname.replace(/^\//, '').split('/')
   const section = parts[0] || 'about'
   const slug = parts[1] || null
-  return { section: sections[section] ? section : 'about', slug }
+  return { section: sections[section] ? section : '404', slug }
 }
 
 export default function App() {
@@ -66,6 +67,19 @@ export default function App() {
   // Full-screen routes (no sidebar/layout)
   if (section === 'labs' && slug === 'audio-player') {
     return <ShaderPlayer onBack={handleLabBack} />
+  }
+
+  if (section === '404') {
+    return (
+      <div className="layout">
+        <Sidebar active={null} onNav={handleNav} />
+        <div className="content-outer">
+          <main className="content">
+            <NotFound onNav={handleNav} />
+          </main>
+        </div>
+      </div>
+    )
   }
 
   return (

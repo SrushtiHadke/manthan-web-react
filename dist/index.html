@@ -12,13 +12,24 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Manthan" />
     <link rel="manifest" href="/site.webmanifest" />
+    <script>
+      // Restore path redirected by 404.html (GitHub Pages SPA fix)
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?')
+          window.history.replaceState(null, null, decoded + l.hash)
+        }
+      }(window.location))
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/index-0tLzmDhg.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DA98lFZW.css">
+    <script type="module" crossorigin src="/assets/index-B7AmJq9g.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DRo9TxQV.css">
   </head>
   <body>
     <div id="root"></div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { version } from '../../package.json'
 import './ThemeToggle.css'
 
 const SunIcon = () => (
@@ -37,17 +38,20 @@ export default function ThemeToggle() {
   }, [mode])
 
   return (
-    <div className="theme-toggle">
-      {MODES.map((m) => (
-        <button
-          key={m.id}
-          className={`theme-btn ${mode === m.id ? 'active' : ''}`}
-          onClick={() => setMode(m.id)}
-          title={m.id}
-        >
-          {m.icon}
-        </button>
-      ))}
+    <div className="theme-toggle-wrap">
+      <div className="theme-toggle">
+        {MODES.map((m) => (
+          <button
+            key={m.id}
+            className={`theme-btn ${mode === m.id ? 'active' : ''}`}
+            onClick={() => setMode(m.id)}
+            title={m.id}
+          >
+            {m.icon}
+          </button>
+        ))}
+      </div>
+      <span className="version-label">v{version}</span>
     </div>
   )
 }
